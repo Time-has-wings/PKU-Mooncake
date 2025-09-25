@@ -32,8 +32,8 @@ from datetime import datetime
 
 # Configuration
 URL = "https://yanyuan.pku.edu.cn/yywd/wap/default/index"
-USERNAME = "your_username"  # Replace with your actual username if different
-PASSWORD = "your_password"  # Replace with your actual password if different
+USERNAME = "2501210620"  # Replace with your actual username if different
+PASSWORD = "lgm381521"  # Replace with your actual password if different
 
 def setup_driver():
     """Set up Chrome WebDriver with webdriver-manager."""
@@ -135,14 +135,14 @@ def add_yanyuan_qiuyue(driver):
         print(f"加购失败: {e}")
 
 def wait_for_noon():
-    """Wait until 11:00:00 (noon) of the current day with dynamic sleep intervals."""
+    """Wait until 12:00:00 (noon) of the current day with dynamic sleep intervals."""
     print("Checking current time...")
     while True:
         now = datetime.now()
-        if now.hour == 11 and now.minute == 0 and now.second == 0:
-            print("Reached 11:00:00, proceeding with add operation...")
+        if now.hour == 12 and now.minute == 0 and now.second == 0:
+            print("Reached 12:00:00, proceeding with add operation...")
             break
-        remaining_seconds = ((11 - now.hour) * 3600) + ((0 - now.minute) * 60) - now.second
+        remaining_seconds = ((12 - now.hour) * 3600) + ((0 - now.minute) * 60) - now.second
         if remaining_seconds > 0:
             # Dynamic sleep based on remaining time
             if remaining_seconds > 600:  # More than 10 minutes
@@ -153,10 +153,10 @@ def wait_for_noon():
                 sleep_time = 0.5
             else:  # Less than 10 seconds
                 sleep_time = 0.01
-            print(f"Current time: {now.strftime('%H:%M:%S')}, waiting {remaining_seconds} seconds until 11:00:00, sleeping for {sleep_time} seconds...")
+            print(f"Current time: {now.strftime('%H:%M:%S')}, waiting {remaining_seconds} seconds until 12:00:00, sleeping for {sleep_time} seconds...")
             time.sleep(sleep_time)
         else:
-            print("Current time is past 11:00, proceeding immediately...")
+            print("Current time is past 12:00, proceeding immediately...")
             break
 
 def main():
@@ -164,8 +164,8 @@ def main():
     try:
         login(driver)
         wait_for_noon()
-        add_yanyuan_qiuyue(driver)
-        # add_yanyuan_haoyue(driver)
+        # add_yanyuan_qiuyue(driver)
+        add_yanyuan_haoyue(driver)
         driver.execute_script("document.getElementById('app').__vue__.save();")
         input("Press Enter to close the browser...")
         
